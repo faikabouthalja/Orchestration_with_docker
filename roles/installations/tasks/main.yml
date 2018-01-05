@@ -1,25 +1,41 @@
 ---
-- name: vérifier dépendances: apt-transport-https (1/4)
+- name: vérifier dépendances
+  sudo: yes
   apt:
-    name: apt-transport-https 
+    name: {{ item }} 
     state: present
+  with_items:
+    - apt-transport-https 
+    - ca-certificates
+    - curl
+    - software-properties-common
 
-- name: verifier dependances : ca-certificates (2/4)
-  apt:
-    name: ca-certificates
-    state: present
 
-- name: verifier dependances : curl (3/4)
-  apt:
-    name: curl
-    state: present
+- name: add deb repo
+  sudo: yes
+  file:  
+    path: /etc/apt/sources.list.d/docker.list
+    state: touch
 
-- name: verifier dependances : software-properties-common (4/4)
-  apt:
-    name: software-properties-common
+- lineinfile: dest="/etc/apt/sources.list.d/docker.list" line="{{item}}"
+  with_items:
+    - "deb https://apt.dockerproject.org/repo ubuntu-trusty main"
+
+- name: apt update
+  sudo: yes
+  apt: update_cache=yes
+
+- name: installation docker
+  sudo: yes
+  apt: 
+    name: docker-ce
     state: present
 
 - name: installation docker compose
+  get_url:
+    url:  https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m`
+    dest: /usr/local/bin/docker-compose
+    mode: "+x"
 
 - name: recupérer repo git
 
