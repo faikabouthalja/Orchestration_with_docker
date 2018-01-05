@@ -1,0 +1,20 @@
+---
+- host: all
+  roles:
+    - installations
+
+- hosts: back
+  roles:
+    - deployback
+
+- hosts: middle 
+  roles:
+    - deploymiddle
+
+- hosts: front
+  roles:
+    - deployfront
+
+- hosts: frontadmin
+  roles:
+    - deployfrontadmin  

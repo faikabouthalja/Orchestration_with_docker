@@ -1,0 +1,25 @@
+---
+- name: vérifier dépendances: apt-transport-https (1/4)
+  apt:
+    name: apt-transport-https 
+    state: present
+
+- name: verifier dependances : ca-certificates (2/4)
+  apt:
+    name: ca-certificates
+    state: present
+
+- name: verifier dependances : curl (3/4)
+  apt:
+    name: curl
+    state: present
+
+- name: verifier dependances : software-properties-common (4/4)
+  apt:
+    name: software-properties-common
+    state: present
+
+- name: installation docker compose
+
+- name: recupérer repo git
+
