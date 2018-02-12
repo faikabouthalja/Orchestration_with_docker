@@ -1,0 +1,11 @@
+[back]
+198.18.128.133 ansible_connection=ssh ansible_ssh_user=admindt ansible_ssh_private_key_file=/home/incosav/Ambassadeur/ssh/key_priv.txt
+
+[middle]
+198.18.128.134 ansible_connection=ssh ansible_ssh_user=admindt ansible_ssh_private_key_file=/home/incosav/Ambassadeur/ssh/key_priv.txt
+
+[front]
+198.18.120.20 ansible_connection=ssh ansible_ssh_user=admindt ansible_ssh_private_key_file=/home/incosav/Ambassadeur/ssh/key_priv.txt
+
+[frontadmin]
+198.18.128.132 ansible_connection=ssh ansible_ssh_user=admindt ansible_ssh_private_key_file=/home/incosav/Ambassadeur/ssh/key_priv.txt
