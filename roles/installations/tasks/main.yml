@@ -51,30 +51,24 @@
     - snmpd
     - snmp-mibs-downloader
 
-        #- name: creation sslcrf
-        #    become: yes
-        #    file:
-        #      path: /etc/sslcarrefour
-        #      state : present
-        #      state: directory
-        #      mode: 0777
+- name: remove localtime
+  become: yes
+  file: path=/etc/localtime state=absent
 
-        #- name : Creation des cles privees ssl
-        #  openssl_privatekey : 
-        #  path : /etc/sslcarrefour/{{item}}.key
-        #  with_items :
-        #    - "{{publicationbo_privatekeyname}}"
-        #    - "{{frontadm_privatekeyname}}"
+- name: copy ntp config file
+  become: yes
+  template: src=ntp.conf dest=/etc/ntp.conf
+  notify: restart ntp
 
-        #- name : generation des CSR
-        #  openssl_csr:
-        #  path: /etc/sslcarrefour/csr/{{item}}.csr
-        #  privatekey_path: /etc/ssl/private/{{item}}.key
-        #  country_name: FR
-        #  organization_name: Carrefour France
-        #  email_address: thomas_rufyiri@carrefour.com
-        #  common_name: "{{item}}"
-        #  with_items : 
-        #    - "{{publicationbo_privatekeyname}}"
-        #    - "{{frontadm_privatekeyname}}"
+- name: symlink localtime
+  become: yes
+  file:
+    src: /usr/share/zoneinfo/Europe/Paris 
+    dest: /etc/localtime
+    state: link
 
+- name: date system
+  command: date
+  register: date
+
+- debug: msg="{{ date }}"

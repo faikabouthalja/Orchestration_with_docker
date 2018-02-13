@@ -1,0 +1,3 @@
+- name: restart ntp
+  become: yes
+  service: name=ntp state=restarted
