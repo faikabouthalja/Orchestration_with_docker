@@ -1,0 +1,37 @@
+- name: create new partition on /dev/sdc
+  parted:
+    device: /dev/sdc
+    number: 1
+    state: present
+
+- name: create ext4 filesystem on /dev/sdc1
+  filesystem:
+    fstype: ext4
+    dev: /dev/sdc1
+    #    opts: -t
+
+- name: create /datadrive
+  file: path=/datadrive state=directory
+
+- name: get uuid of sdc1 disk
+  command: blkid /dev/sdc1 -sUUID -ovalue
+  register: disk_blkid
+
+- name: mount /dev/sdc1 on /datadrive
+  mount:
+    path: "/datadrive"
+    src: "UUID={{disk_blkid.stdout}}"
+    fstype: "ext4"
+    state: "mounted"
+    opts: "noatime"
+
+
+- name: verify line not exist
+  command: grep "datadrive" /etc/fstab
+  register: exists_datadrive
+
+  #- name: add disk on fstab
+  #lineinfile:
+  # path: /etc/fstab
+  # line: "UUID={{disk_blkid.stdout}} /datadrive ext4 defaults,nofail 1 2"
+

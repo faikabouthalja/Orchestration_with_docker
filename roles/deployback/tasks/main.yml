@@ -7,11 +7,12 @@
         db: 
           image: erecruteregistry01acr.azurecr.io/mysql:5.7
           environment:
-               MYSQL_DATABASE: "{{ databasename }}"
-               MYSQL_PASSWORD: "{{ userpassword }}"
-               MYSQL_USER: "{{ dbuser }}"
-               MYSQL_ROOT_PASSWORD: "root"
-               HOST_IP_ADDRESS: "127.0.0.1"
+               MYSQL_DATABASE: "{{databasename}}"
+               MYSQL_PASSWORD: "{{userpassword}}"
+               MYSQL_USER: "{{dbuser}}"
+               MYSQL_ROOT_PASSWORD: "{{rootdbpassword}}"
+               MYSQL_ROOT_HOST: "localhost"
+          network_mode: "host"
           volumes:
             - "/home/admindt/appmultihost/backapp/dump:/var/dump"
             - "/datadrive/datadb:/var/lib/mysql"
@@ -26,5 +27,3 @@
             volumes:
               - "/datadrive/solrcore/core1:/var/solr/data/core1"
             tty: true
-
-

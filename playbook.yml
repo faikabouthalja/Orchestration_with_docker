@@ -5,6 +5,7 @@
     - group_vars/all.yml
   roles:
     - installations
+    - mountdisk
 
 - hosts: back
   become: yes
