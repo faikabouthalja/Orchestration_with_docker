@@ -1,0 +1,30 @@
+- name: run docker compose on back vm
+  docker_service:
+    project_name: "/home/admindt/appmultihost/backapp"
+    definition:
+      version: '2'
+      services:
+        db: 
+          image: erecruteregistry01acr.azurecr.io/mysql:5.7
+          environment:
+               MYSQL_DATABASE: "{{ databasename }}"
+               MYSQL_PASSWORD: "{{ userpassword }}"
+               MYSQL_USER: "{{ dbuser }}"
+               MYSQL_ROOT_PASSWORD: "root"
+               HOST_IP_ADDRESS: "127.0.0.1"
+          volumes:
+            - "/home/admindt/appmultihost/backapp/dump:/var/dump"
+            - "/datadrive/datadb:/var/lib/mysql"
+          ports:
+            - "3306:3306"
+          tty: true
+        solr:
+            build: 
+                context: /home/admindt/appmultihost/backapp/docker/solr
+            ports:
+              - "8983:8983"
+            volumes:
+              - "/datadrive/solrcore/core1:/var/solr/data/core1"
+            tty: true
+
+

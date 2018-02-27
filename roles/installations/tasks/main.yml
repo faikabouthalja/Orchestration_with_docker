@@ -1,10 +1,8 @@
 ---
 - name: update system
-  become: yes
   apt: update_cache=yes
 
 - name: verifier dependances
-  become: yes
   apt: name={{ item }}  state=present
   with_items:
     - apt-transport-https 
@@ -13,37 +11,31 @@
     - software-properties-common
 
 - name: add official GPG key for docker
-  become: yes
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
   
 - name: add apt repository
-  become: yes
   apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
     state: present
 
 
 - name: apt update
-  become: yes
   apt: update_cache=yes
 
 - name: installation docker
-  become: yes
   apt: 
     name: docker-ce
     state: present
 
 - name: installation docker compose
-  become: yes
   get_url:
     url:  https://github.com/docker/compose/releases/download/1.17.0/docker-compose-Linux-x86_64
     dest: /usr/local/bin/docker-compose
     mode: "+x"
 
 - name: Installation ntp et snmp
-  become: yes
   apt: name={{ item }}  state=present  update_cache=yes
   with_items:
     - ntp
@@ -52,16 +44,13 @@
     - snmp-mibs-downloader
 
 - name: remove localtime
-  become: yes
   file: path=/etc/localtime state=absent
 
 - name: copy ntp config file
-  become: yes
   template: src=ntp.conf dest=/etc/ntp.conf
   notify: restart ntp
 
 - name: symlink localtime
-  become: yes
   file:
     src: /usr/share/zoneinfo/Europe/Paris 
     dest: /etc/localtime
@@ -71,4 +60,40 @@
   command: date
   register: date
 
-- debug: msg="{{ date }}"
+  #- debug: msg="{{ date }}"
+
+- name: delete snmpd.conf
+  file:
+    path: /etc/snmp/snmpd.conf
+    state: absent
+  notify: restart snmp
+
+- name: Copy config file snmpd.conf
+  template:
+     src: snmpd.conf
+     dest: /etc/snmp/snmpd.conf
+
+- name: Enable snmp
+  systemd:
+    name: snmpd
+    enabled: yes
+    masked: no
+
+- name: clone git repository
+  git: 
+    repo: "https://{{ gitusername }}:{{ gitpassword }}@cipcssmc.carrefour.com/stash/scm/rec/appmultihost.git"
+    accept_hostkey: yes
+    force: yes
+    dest: /home/admindt/appmultihost
+
+- name: install python
+  apt: name={{ item }}  state=present  update_cache=yes
+  with_items:
+    - python-dev
+    - python-pip
+
+- name: install dockerpy
+  pip: name={{ item }} 
+  with_items:
+    - docker
+    - docker-compose

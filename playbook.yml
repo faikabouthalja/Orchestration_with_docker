@@ -1,19 +1,21 @@
 ---
-- hosts: middle
+- hosts: all
+  become: yes
+  vars_files:
+    - group_vars/all.yml
   roles:
     - installations
 
 - hosts: back
+  become: yes
+  vars_files:
+    - group_vars/rec.yml
   roles:
     - deployback
 
-- hosts: middle 
+- hosts: middle
   roles:
     - deploymiddle
-
-- hosts: front
-  roles:
-    - deployfront
 
 - hosts: frontadmin
   roles:
