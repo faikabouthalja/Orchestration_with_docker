@@ -16,3 +16,4 @@ APP_SERVER_ALIAS: rec-recrute.carrefour.fr dev-enviedebouger.carrefour.fr
 APP_HOST: 198.18.67.4
 FRONT_CERT_NAME: erc-dev-fre01.erecrute.xpod.carrefour.com
 FAD_CERT_NAME: erc-dev-fad01.erecrute.xpod.carrefour.com
+SYMFONY__BO__HOST: 198.18.67.4

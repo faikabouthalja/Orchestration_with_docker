@@ -46,4 +46,49 @@
                     - "/datadrive/srcrecrute:/var/www/{{APP_PROJECT_DIR_NAME}}"
                     - "/datadrive/logsrecrute/{{APP_PROJECT_DIR_NAME}}:/var/www/{{APP_PROJECT_DIR_NAME}}/app/logs"
 
-
+- name: Run bo containers
+  docker_service:
+    project_name: "borecrute"
+    definition:
+      version: '2'
+      services:
+        phpbo: 
+          build: "/home/admindt/appmultihost/boapp/docker/php7-fpm"
+          args:
+              APP_PROJECT_DIR_NAME: "{{APP_PROJECT_DIR_NAME}}"
+          environment:
+              SYMFONY__ENV: "{{SYMPHONY__ENV}}"
+              SYMFONY__DB__HOST: "{{SYMPHONY__DB__HOST}}"
+              SYMFONY__ERECRUTE__HOST: "{{SYMFONY__ERECRUTE__HOST}}"
+              SYMFONY__ENVIEDEBOUGER__HOST: "{{SYMFONY__ENVIEDEBOUGER__HOST}}"
+              SYMFONY__ADMIN__HOST: "{{SYMFONY__BO__HOST}}"
+              SYMFONY__SOLR__HOST: "{{SYMPHONY__SOLR__HOST}}"
+          volumes:
+            - "/datadrive/srcbo:/var/www/${APP_PROJECT_DIR_NAME}"
+            - "/datadrive/logsbo/{{APP_PROJECT_DIR_NAME}}:/var/www/{{APP_PROJECT_DIR_NAME}}/app/logs"
+          ports:
+            - "9002:9000"
+            - "1025:25"
+        apachebo:
+          build: "/home/admindt/appmultihost/boapp/dokcer/apache"
+          args:
+              APP_PROJECT_DIR_NAME: "{{APP_PROJECT_DIR_NAME}}"
+              APP_PROJECT_TYPE: "{{APP_PROJECT_TYPE}}"
+          environment:
+              APP_SERVER_NAME: "{{APP_SERVER_NAME}}"
+              FRONT_CERT_NAME: "{FRONT_CERT_NAME}}"
+              APP_PROJECT_DIR_NAME: "{{APP_PROJECT_DIR_NAME}}"
+              APP_PHP_HOST: "{{APP__PHP__HOST}}"
+              SYMFONY__ENV: "{{SYMPHONY__ENV}}"
+              SYMFONY__DB__HOST: "{{SYMPHONY__DB__HOST}}"
+              SYMFONY__DB__HOST: "{{SYMPHONY__DB__HOST}}"
+              SYMFONY__ERECRUTE__HOST: "{{SYMFONY__ERECRUTE__HOST}}"
+              SYMFONY__ENVIEDEBOUGER__HOST: "{{SYMFONY__ENVIEDEBOUGER__HOST}}"
+              SYMFONY__ADMIN__HOST: "{{SYMFONY__ADMIN__HOST}}"
+              SYMFONY__SOLR__HOST: "{{SYMPHONY__SOLR__HOST}}"
+          ports:  
+              - "4443:443"
+          volumes:
+              - "/datadrive/logsbo/apache/:/usr/local/apache2/logs"
+              - "/datadrive/srcbo:/var/www/{{APP_PROJECT_DIR_NAME}}"
+              - "/datadrive/logsbo/{{APP_PROJECT_DIR_NAME}}:/var/www/{{APP_PROJECT_DIR_NAME}}/app/logs"
