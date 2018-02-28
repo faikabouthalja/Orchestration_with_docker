@@ -1,6 +1,6 @@
-- name: run docker compose on back vm
+- name: run solr and mysql docker containers on back vm
   docker_service:
-    project_name: "/home/admindt/appmultihost/backapp"
+    project_name: "erecrute"
     definition:
       version: '2'
       services:

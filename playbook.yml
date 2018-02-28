@@ -5,19 +5,19 @@
     - group_vars/all.yml
   roles:
     - installations
-    - mountdisk
+      #    - mountdisk
 
-- hosts: back
-  become: yes
-  vars_files:
-    - group_vars/rec.yml
-  roles:
-    - deployback
+      #- hosts: back
+      #  become: yes
+      #  vars_files:
+      #    - group_vars/rec.yml
+      #  roles:
+      #    - deployback
 
-- hosts: middle
-  roles:
-    - deploymiddle
+      #- hosts: middle
+      #  roles:
+      #"    - deploymiddle
 
-- hosts: frontadmin
-  roles:
-    - deployfrontadmin  
+      #- hosts: frontadmin
+      #  roles:
+          #    - deployfrontadmin  

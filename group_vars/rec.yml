@@ -2,3 +2,17 @@ databasename: erecrute
 userpassword: t6uStach
 dbuser: erecrute
 rootdbpassword: root
+SYMPHONY__ENV: dev
+SYMPHONY__DB__HOST: 198.18.128.133 
+SYMFONY__ERECRUTE__HOST: 198.18.128.134
+SYMFONY__ENVIEDEBOUGER__HOST: rec-enviedebouger.carrefour.fr
+SYMFONY__ADMIN__HOST: rec-bo.recrute.carrefour.com
+SYMPHONY__SOLR__HOST: 198.18.128.133
+APP_PROJECT_DIR_NAME: symfony
+APP_PROJECT_TYPE: symfony
+APP__PHP__HOST: 198.18.128.134
+APP_SERVER_NAME: rec-enviedebouger.carrefour.fr
+APP_SERVER_ALIAS: rec-recrute.carrefour.fr dev-enviedebouger.carrefour.fr
+APP_HOST: 198.18.67.4
+FRONT_CERT_NAME: erc-dev-fre01.erecrute.xpod.carrefour.com
+FAD_CERT_NAME: erc-dev-fad01.erecrute.xpod.carrefour.com
