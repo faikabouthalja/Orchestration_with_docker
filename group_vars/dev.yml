@@ -8,10 +8,13 @@ SYMFONY__ERECRUTE__HOST: 198.18.67.4
 SYMFONY__ENVIEDEBOUGER__HOST: dev-enviedebouger.carrefour.fr
 SYMFONY__ADMIN__HOST: dev-bo.recrute.carrefour.com
 SYMPHONY__SOLR__HOST: 198.18.67.6
+SYMFONY__BO__HOST: 198.18.67.4
 APP_PROJECT_DIR_NAME: symfony
 APP_PROJECT_TYPE: symfony
 APP__PHP__HOST: 198.18.67.4
+APP_PHP_HOST: 198.18.67.4
 APP_SERVER_NAME: dev-enviedebouger.carrefour.fr
 APP_SERVER_ALIAS: dev-recrute.carrefour.fr dev-enviedebouger.carrefour.fr
 FRONT_CERT_NAME: erc-dev-fre01.erecrute.xpod.carrefour.com
 FAD_CERT_NAME: erc-dev-fad01.erecrute.xpod.carrefour.com
+APP_HOST: 198.18.67.4
