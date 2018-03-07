@@ -99,7 +99,7 @@
   wait_for:
     host: "{{APP__PHP__HOST}}" 
     port: 9000
-    timeout: 400
+    timeout: 1200
 
 - name: clear cache of php for front
   command: sh /home/admindt/appmultihost/middleapp/afterscript.sh
@@ -108,7 +108,7 @@
   wait_for:
     host: "{{APP__PHP__HOST}}"
     port: 9002
-    timeout: 400
+    timeout: 800
 
 - name: clear cache of php for bo
   command: sh /home/admindt/appmultihost/boapp/afterscript.sh

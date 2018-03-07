@@ -27,3 +27,10 @@
     - group_vars/rec.yml
   roles:
     - deployfrontadmin  
+
+- hosts: front
+  become: yes
+  vars_files:
+    - group_vars/rec.yml
+  roles:
+    - deployfront
