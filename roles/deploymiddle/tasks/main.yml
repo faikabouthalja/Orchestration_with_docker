@@ -1,3 +1,6 @@
+- name: clean up containers and volumes
+  command: sh /home/admindt/appmultihost/middleapp/scriptclean.sh && sh /home/admindt/appmultihost/boapp/scriptclean.sh
+
 - name: run recrute and enviedebouger container
   docker_service:
     project_name: "erecrute"
@@ -99,7 +102,7 @@
   wait_for:
     host: "{{APP__PHP__HOST}}" 
     port: 9000
-    timeout: 1200
+    timeout: 2000
 
 - name: clear cache of php for front
   command: sh /home/admindt/appmultihost/middleapp/afterscript.sh

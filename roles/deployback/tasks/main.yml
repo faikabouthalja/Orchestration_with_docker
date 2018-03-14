@@ -14,7 +14,7 @@
                MYSQL_ROOT_HOST: "localhost"
           network_mode: "host"
           volumes:
-            - "/home/admindt/appmultihost/backapp/dump:/var/dump"
+            - "/datadrive/dump:/var/dump"
             - "/datadrive/datadb:/var/lib/mysql"
           ports:
             - "3306:3306"
