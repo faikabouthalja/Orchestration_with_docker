@@ -79,12 +79,12 @@
     enabled: yes
     masked: no
 
-- name: clone git repository
-  git: 
-    repo: "https://{{ gitusername }}:{{ gitpassword }}@cipcssmc.carrefour.com/stash/scm/rec/appmultihost.git"
-    accept_hostkey: yes
-    force: yes
-    dest: /home/admindt/appmultihost
+    #- name: clone git repository
+    #  git: 
+    #    repo: "https://{{ gitusername }}:{{ gitpassword }}@cipcssmc.carrefour.com/stash/scm/rec/appmultihost.git"
+    #    accept_hostkey: yes
+    #    force: yes
+    #    dest: /home/admindt/appmultihost
 
 - name: install python
   apt: name={{ item }}  state=present  update_cache=yes
