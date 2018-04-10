@@ -11,9 +11,10 @@ SYMPHONY__SOLR__HOST: 198.18.128.133
 APP_PROJECT_DIR_NAME: symfony
 APP_PROJECT_TYPE: symfony
 APP__PHP__HOST: 198.18.128.134
+APP_PHP_HOST: 198.18.128.134
 APP_SERVER_NAME: rec-enviedebouger.carrefour.fr
 APP_SERVER_ALIAS: rec-recrute.carrefour.fr rec-enviedebouger.carrefour.fr
-APP_HOST: 198.18.67.4
+APP_HOST: 198.18.128.134
 FRONT_CERT_NAME: erc-rec-fre01.erecrute.xpod.carrefour.com
 FAD_CERT_NAME: erc-rec-fad01.erecrute.xpod.carrefour.com
-SYMFONY__BO__HOST: 198.18.67.4
+SYMFONY__BO__HOST: 198.18.128.134
