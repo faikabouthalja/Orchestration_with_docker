@@ -1,11 +1,11 @@
 [back]
-198.18.128.133 ansible_connection=ssh ansible_ssh_user=admindt ansible_ssh_private_key_file=/home/incosav/Ambassadeur/ssh/key_priv.txt
+198.18.128.133 ansible_connection=ssh ansible_ssh_user=faika ansible_ssh_private_key_file=/home/faika/.ssh/id_rsa
 
 [middle]
-198.18.128.134 ansible_connection=ssh ansible_ssh_user=admindt ansible_ssh_private_key_file=/home/incosav/Ambassadeur/ssh/key_priv.txt
+198.18.128.134 ansible_connection=ssh ansible_ssh_user=faika ansible_ssh_private_key_file=/home/faika/.ssh/id_rsa
 
 [front]
-198.18.120.20 ansible_connection=ssh ansible_ssh_user=admindt ansible_ssh_private_key_file=/home/incosav/Ambassadeur/ssh/key_priv.txt
+198.18.120.20 ansible_connection=ssh ansible_ssh_user=faika ansible_ssh_private_key_file=/home/faika/.ssh/id_rsa
 
 [frontadmin]
-198.18.128.132 ansible_connection=ssh ansible_ssh_user=admindt ansible_ssh_private_key_file=/home/incosav/Ambassadeur/ssh/key_priv.txt
+198.18.128.132 ansible_connection=ssh ansible_ssh_user=faika ansible_ssh_private_key_file=/home/faika/.ssh/id_rsa

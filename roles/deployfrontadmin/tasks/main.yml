@@ -1,12 +1,12 @@
 - name: run nginx container on front admin vm
   docker_service:
-    project_name: "erecrute"
+    project_name: "projettest"
     definition:
       version: '2'
       services:
         nginx: 
             build: 
-                context: /home/admindt/appmultihost/fadapp/docker/nginx
+                context: /home/faika/projetphp/fadapp/docker/nginx
             environment:
                 FAD_CERT_NAME: "{{FAD_CERT_NAME}}"
                 APP_HOST: "{{APP_HOST}}"

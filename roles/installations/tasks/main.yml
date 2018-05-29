@@ -81,10 +81,10 @@
 
 - name: clone git repository
   git: 
-    repo: "https://{{ gitusername }}:{{ gitpassword }}@cipcssmc.carrefour.com/stash/scm/rec/appmultihost.git"
+  repo: "https://{{ gitusername }}:{{ gitpassword }}@github.com/faikabouthalja/projetphp.git"
     accept_hostkey: yes
     force: yes
-    dest: /home/admindt/appmultihost
+    dest: /home/faika/projetphp
 
 - name: install python
   apt: name={{ item }}  state=present  update_cache=yes

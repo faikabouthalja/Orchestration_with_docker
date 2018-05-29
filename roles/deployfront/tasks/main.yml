@@ -1,12 +1,12 @@
 - name: run nginx container on front vm
   docker_service:
-    project_name: "erecrute"
+    project_name: "projettest"
     definition:
       version: '2'
       services:
         nginx: 
             build: 
-                context: /home/admindt/appmultihost/frontapp/docker/nginx
+                context: /home/faika/projetphp/frontapp/docker/nginx
             environment:
                 FRONT_CERT_NAME: "{{FRONT_CERT_NAME}}"
                 APP_HOST: "{{APP_HOST}}"

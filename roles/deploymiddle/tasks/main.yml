@@ -1,82 +1,60 @@
 - name: clean up containers and volumes
-  command: sh /home/admindt/appmultihost/middleapp/scriptclean.sh && sh /home/admindt/appmultihost/boapp/scriptclean.sh
+  command: sh /home/faika/projetphp/middleapp/scriptclean.sh && sh /home/faika/projetphp/boapp/scriptclean.sh
 
 - name: run recrute and enviedebouger container
   docker_service:
-    project_name: "erecrute"
+    project_name: "projettest"
     definition:
       version: '2'
       services:
         php: 
           build:
-              context: "/home/admindt/appmultihost/middleapp/docker/php7-fpm"
+              context: "/home/faika/projetphp/middleapp/docker/php7-fpm"
               args:
-                 APP_PROJECT_DIR_NAME: "{{APP_PROJECT_DIR_NAME}}"
           environment:
-               SYMFONY__ENV: "{{SYMPHONY__ENV}}"
                SYMFONY__DB__HOST: "{{SYMPHONY__DB__HOST}}"
-               SYMFONY__ERECRUTE__HOST: "{{SYMFONY__ERECRUTE__HOST}}"
-               SYMFONY__ENVIEDEBOUGER__HOST: "{{SYMFONY__ENVIEDEBOUGER__HOST}}"
-               SYMFONY__ADMIN__HOST: "{{SYMFONY__ADMIN__HOST}}"
-               SYMFONY__SOLR__HOST: "{{SYMPHONY__SOLR__HOST}}"
           volumes:
             - "/datadrive/srcrecrute:/var/www/symfony"
             - "/datadrive/logsrecrute/symfony:/var/www/symfony/app/logs"
           ports:
                   - "9000:9000"
-                  - "25:25"
           
         apache:
             build: 
-                context: "/home/admindt/appmultihost/middleapp/docker/apache"
+                context: "/home/faika/projetphp/middleapp/docker/apache"
                 args:
-                   APP_PROJECT_DIR_NAME: "{{APP_PROJECT_DIR_NAME}}"
                    APP_PROJECT_TYPE: "{{APP_PROJECT_TYPE}}"
             environment:
                 APP_SERVER_NAME: "{{APP_SERVER_NAME}}"
                 FRONT_CERT_NAME: "{{FRONT_CERT_NAME}}"
                 APP_PROJECT_DIR_NAME: "{{APP_PROJECT_DIR_NAME}}"
-                APP_PHP_HOST: "{{APP__PHP__HOST}}"
-                SYMFONY__ENV: "{{SYMPHONY__ENV}}"
                 SYMFONY__DB__HOST: "{{SYMPHONY__DB__HOST}}"
-                SYMFONY__ERECRUTE__HOST: "{{SYMFONY__ERECRUTE__HOST}}"
-                SYMFONY__ENVIEDEBOUGER__HOST: "{{SYMFONY__ENVIEDEBOUGER__HOST}}"
-                SYMFONY__ADMIN__HOST: "{{SYMFONY__ADMIN__HOST}}"
-                SYMFONY__SOLR__HOST: "{{SYMPHONY__SOLR__HOST}}"
             ports:
                     - "443:443"
             volumes:
-                    - "/datadrive/logsrecrute/apache/:/usr/local/apache2/logs"
-                    - "/datadrive/srcrecrute:/var/www/symfony"
-                    - "/datadrive/logsrecrute/symfony:/var/www/{{APP_PROJECT_DIR_NAME}}/app/logs"
+                    - "/datadrive/logs/apache/:/usr/local/apache2/logs"
+                    - "/datadrive/src:/var/www/symfony"
+                    - "/datadrive/logs/symfony:/var/www/{{APP_PROJECT_DIR_NAME}}/app/logs"
 
 - name: Run bo containers
   docker_service:
-    project_name: "borecrute"
+    project_name: "cmsprojettest"
     definition:
       version: '2'
       services:
         phpbo: 
           build:
-              context: "/home/admindt/appmultihost/boapp/docker/php7-fpm"
+              context: "/home/faika/projetphp/boapp/docker/php7-fpm"
               args:
                   APP_PROJECT_DIR_NAME: "{{APP_PROJECT_DIR_NAME}}"
-          environment:
-              SYMFONY__ENV: "{{SYMPHONY__ENV}}"
-              SYMFONY__DB__HOST: "{{SYMPHONY__DB__HOST}}"
-              SYMFONY__ERECRUTE__HOST: "{{SYMFONY__ERECRUTE__HOST}}"
-              SYMFONY__ENVIEDEBOUGER__HOST: "{{SYMFONY__ENVIEDEBOUGER__HOST}}"
-              SYMFONY__ADMIN__HOST: "{{SYMFONY__BO__HOST}}"
-              SYMFONY__SOLR__HOST: "{{SYMPHONY__SOLR__HOST}}"
           volumes:
-            - "/datadrive/srcbo:/var/www/symfony"
-            - "/datadrive/logsbo/symfony/var/www/symfony/app/logs"
+            - "/datadrive/srcms/var/www/symfony"
+            - "/datadrive/logscms/symfony/var/www/symfony/app/logs"
           ports:
             - "9002:9000"
-            - "1025:25"
         apachebo:
           build:
-               context: "/home/admindt/appmultihost/boapp/docker/apache"
+               context: "/home/faika/projetphp/boapp/docker/apache"
                args:
                    APP_PROJECT_DIR_NAME: "{{APP_PROJECT_DIR_NAME}}"
                    APP_PROJECT_TYPE: "{{APP_PROJECT_TYPE}}"
@@ -84,28 +62,21 @@
               APP_SERVER_NAME: "{{APP_SERVER_NAME}}"
               FAD_CERT_NAME: "{{FAD_CERT_NAME}}"
               APP_PROJECT_DIR_NAME: "{{APP_PROJECT_DIR_NAME}}"
-              APP_PHP_HOST: "{{APP__PHP__HOST}}"
-              SYMFONY__ENV: "{{SYMPHONY__ENV}}"
-              SYMFONY__DB__HOST: "{{SYMPHONY__DB__HOST}}"
-              SYMFONY__ERECRUTE__HOST: "{{SYMFONY__ERECRUTE__HOST}}"
-              SYMFONY__ENVIEDEBOUGER__HOST: "{{SYMFONY__ENVIEDEBOUGER__HOST}}"
-              SYMFONY__ADMIN__HOST: "{{SYMFONY__BO__HOST}}"
-              SYMFONY__SOLR__HOST: "{{SYMPHONY__SOLR__HOST}}"
           ports:  
               - "4443:443"
           volumes:
-              - "/datadrive/logsbo/apache/:/usr/local/apache2/logs"
-              - "/datadrive/srcbo:/var/www/symfony"
-              - "/datadrive/logsbo/symfony:/var/www/symfony/app/logs"
+              - "/datadrive/logscms/apache/:/usr/local/apache2/logs"
+              - "/datadrive/srccms:/var/www/symfony"
+              - "/datadrive/logscms/symfony:/var/www/symfony/app/logs"
 
 - name: wait for app front to end compiling
   wait_for:
-    host: "{{APP__PHP__HOST}}" 
+    host: "{{APP_PHP_HOST}}" 
     port: 9000
     timeout: 2000
 
 - name: clear cache of php for front
-  command: sh /home/admindt/appmultihost/middleapp/afterscript.sh
+  command: sh /home/faika/projetphp/middleapp/afterscript.sh
 
 - name: wait for app bo to end compiling
   wait_for:
@@ -114,4 +85,4 @@
     timeout: 800
 
 - name: clear cache of php for bo
-  command: sh /home/admindt/appmultihost/boapp/afterscript.sh
+  command: sh /home/faika/projetphp/boapp/afterscript.sh

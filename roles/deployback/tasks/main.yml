@@ -1,11 +1,11 @@
 - name: run solr and mysql docker containers on back vm
   docker_service:
-    project_name: "erecrute"
+    project_name: "testproject"
     definition:
       version: '2'
       services:
         db: 
-          image: erecruteregistry01acr.azurecr.io/mysql:5.7
+        image:  nexushost.localdomain:8082/mysql:5.7
           environment:
                MYSQL_DATABASE: "{{databasename}}"
                MYSQL_PASSWORD: "{{userpassword}}"
@@ -21,7 +21,7 @@
           tty: true
         solr:
             build: 
-                context: /home/admindt/appmultihost/backapp/docker/solr
+                context: /home/faika/projetphp/backapp/docker/solr
             ports:
               - "8983:8983"
             volumes:
